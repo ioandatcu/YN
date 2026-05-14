@@ -145,7 +145,7 @@ nav {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
+  padding: 6rem 1.5rem 8rem;
   z-index: 10;
   pointer-events: none;
 }
@@ -157,7 +157,7 @@ nav {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   opacity: 0;
   animation: fadeUp 0.8s var(--ease-out) 0.3s forwards;
 }
@@ -169,12 +169,12 @@ nav {
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-size: clamp(2.6rem, 9vw, 8rem);
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.95;
   letter-spacing: -0.03em;
   color: var(--cream);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   opacity: 0;
   animation: fadeUp 1s var(--ease-out) 0.5s forwards;
 }
@@ -193,7 +193,7 @@ nav {
   line-height: 1.7;
   color: var(--muted);
   font-weight: 300;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   opacity: 0;
   animation: fadeUp 1s var(--ease-out) 0.7s forwards;
 }
@@ -239,28 +239,48 @@ nav {
 .btn-ghost:hover { border-color: var(--cream); transform: translateY(-2px); }
 .hero-scroll {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   z-index: 10;
   opacity: 0;
   animation: fadeIn 1s ease 1.4s forwards;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.scroll-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(244,241,235,0.08);
+  border: 1px solid rgba(244,241,235,0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.7rem 1.3rem;
+  border-radius: 100px;
+  animation: pillBounce 2.2s ease-in-out infinite;
 }
 .scroll-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--cream);
+  opacity: 0.7;
+  font-family: var(--font-body);
 }
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--muted), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
+.scroll-arrow {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+@keyframes pillBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
 }
 
 /* ─── MARQUEE ─── */
@@ -972,6 +992,31 @@ footer {
   #process, #testimonials { padding: 5rem 1.5rem; }
   .process-inner, .testimonials-inner { padding: 0; }
 }
+
+@media (max-width: 600px) {
+  /* Hero mobile fixes */
+  #hero { min-height: 100svh; }
+  .hero-content { padding: 5rem 1.25rem 7rem; justify-content: center; }
+  .hero-tag { font-size: 0.62rem; letter-spacing: 0.12em; margin-bottom: 1rem; }
+  .hero-tag::before, .hero-tag::after { width: 16px; }
+  .hero-title { font-size: clamp(2.4rem, 13vw, 3.8rem); line-height: 1; margin-bottom: 1.2rem; letter-spacing: -0.025em; }
+  .hero-sub { font-size: 0.9rem; margin-bottom: 1.8rem; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 280px; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 0.9rem 1.5rem; }
+  /* Scroll pill on mobile */
+  .scroll-pill { padding: 0.65rem 1.1rem; }
+  .scroll-label { font-size: 0.65rem; }
+  /* Other sections */
+  .process-steps { grid-template-columns: 1fr; }
+  .stat-num { font-size: 2.2rem; }
+  .section-title { font-size: 2rem; }
+  .work-card-overlay { padding: 1.5rem; }
+  .work-card h3 { font-size: 1.2rem; }
+  /* Cursor hidden on touch */
+  #cursor, #cursor-ring { display: none; }
+  body { cursor: auto; }
+  .btn-primary, .btn-ghost, .nav-cta, .pricing-btn { cursor: pointer; }
+}
 </style>
 </head>
 <body>
@@ -1012,9 +1057,13 @@ footer {
       <a href="#cta" class="btn-ghost">Start a project</a>
     </div>
   </div>
-  <div class="hero-scroll">
-    <span class="scroll-label">Scroll</span>
-    <div class="scroll-line"></div>
+  <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-pill">
+      <span class="scroll-label">Scroll</span>
+      <svg class="scroll-arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 2v10M3 8l4 4 4-4"/>
+      </svg>
+    </div>
   </div>
 </section>
 
